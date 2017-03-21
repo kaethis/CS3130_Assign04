@@ -64,6 +64,8 @@ usr_event = [ [], threading.Event()] # for client.
 
 msg_event = [ [], threading.Event()] # for client.
 
+rdy_event = threading.Event() # for client.
+
 
 def messagethread(sock, address):
 
@@ -264,6 +266,9 @@ def clientthread(y, x, height, width, sock):
     sock.settimeout(0)
 
 
+    rdy_event.set()
+
+
     curs_y, curs_x = y, x
 
     while True:
@@ -458,12 +463,19 @@ def client(hostname, port):
 
         ui.alert(2, 2, ret_msg)
 
+        break;
+
 
     t = threading.Thread(target=clientthread, args=(9, 3, 16, 75, sock))
 
     t.daemon = True
 
     t.start()
+
+
+    while not rdy_event.is_set():
+
+        continue # wait for client thread.
 
 
     ui.window(2, 81, 22, 15,\
@@ -473,6 +485,8 @@ def client(hostname, port):
     ui.window(2, 2, 3, 75,\
               ui.curses.color_pair(ui.colors['W/BK']),\
               True)
+
+
 
 
     ui.message(3, 4, REQUEST['GETMSGS'][1])
