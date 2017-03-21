@@ -1,0 +1,54 @@
+DROP DATABASE IF EXISTS CHAT_DB;
+
+CREATE DATABASE CHAT_DB;
+
+
+CREATE USER 'CHAT_ADMIN' IDENTIFIED BY 'Password1234';
+
+GRANT ALL PRIVILEGES ON CHAT_DB.* TO 'CHAT_ADMIN';
+
+FLUSH PRIVILEGES;
+
+
+USE CHAT_DB;
+
+
+CREATE TABLE USERS
+(username   VARCHAR(25)      NOT NULL PRIMARY KEY,
+ password   VARCHAR(85)      NOT NULL,
+ online     BOOL             NOT NULL,
+ ip_address INT(10) UNSIGNED,
+ socket     INT);
+
+CREATE TABLE MESSAGES 
+(msg_id     INT              NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ sender     VARCHAR(25)      NOT NULL,
+ receiver   VARCHAR(25)      NOT NULL,
+ message    VARCHAR(140)     NOT NULL,
+ delivered  BOOL             NOT NULL);
+
+CREATE TABLE REQUESTS
+(req_id     INT              NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ ip_address INT(10) UNSIGNED NOT NULL,
+ username   VARCHAR(25)      NOT NULL,
+ req        INT              NOT NULL,
+ ret        INT              NOT NULL);
+
+
+INSERT INTO
+USERS  (username, password, online)
+VALUES ('kaethis',
+        '152e7a606a0343b2bfab406273571ac073da8f2807076c71c48b2a66',
+        0);
+
+INSERT INTO
+USERS  (username, password, online)
+VALUES ('jturgeon',
+        'a1406ecc41a9b8ec53265c3b71d62134f3546df1328bcb125cdc4cc6',
+        0);
+
+INSERT INTO
+USERS  (username, password, online)
+VALUES ('fcarlacci',
+        '24776e1232309b0306547e45ed159146353839b3a2f2cedfaffe1151',
+        0);
