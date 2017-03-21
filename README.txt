@@ -161,4 +161,14 @@
             make your console window large enough before running
             the client application.
 
+          - 'APOSTROPHES IN INPUT' [1.0]
+            If the user enters a message containing two or more
+            apostrophes (and, presumably, quotations), the
+            database will be unable to distinguish the input from
+            the syntax of the query and will crash.  This is a
+            pretty awful bug and wasn't caught until shortly
+            after initial distribution.  Until I can solve how to
+            sanatize the input, refrain from entering messages
+            that contain two or more apostrophes or quotations!
+
 [REPO]    https://github.com/kaethis/CS3130_Assign04
